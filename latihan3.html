@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universitas Teknologi Nusantara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f6fa;
+      color: #1a1a2e;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: #1a237e;
+      color: #c5cae9;
+      font-size: 0.75em;
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topbar a { color: #c5cae9; margin-left: 16px; }
+    .topbar a:hover { color: #fff; }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e8eaf6;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .nav-logo .logo-icon {
+      width: 46px;
+      height: 46px;
+      background: #1a237e;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.4em;
+      font-weight: 700;
+    }
+
+    .nav-logo .logo-text h1 {
+      font-size: 0.95em;
+      font-weight: 700;
+      color: #1a237e;
+      line-height: 1.2;
+    }
+
+    .nav-logo .logo-text p {
+      font-size: 0.72em;
+      color: #7986cb;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      font-size: 0.85em;
+      font-weight: 500;
+      color: #374151;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .nav-links li a:hover { background: #e8eaf6; color: #1a237e; }
+
+    .nav-links .btn-daftar a {
+      background: #1a237e;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 20px;
+    }
+
+    .nav-links .btn-daftar a:hover { background: #283593; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%);
+      color: #fff;
+      padding: 80px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      min-height: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: 80px;
+      bottom: -80px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero-content { max-width: 580px; position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #c5cae9;
+      font-size: 0.75em;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.8em, 4vw, 2.8em);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .hero h2 span { color: #90caf9; }
+
+    .hero p {
+      font-size: 0.97em;
+      color: #c5cae9;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      max-width: 480px;
+    }
+
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: #fff;
+      color: #1a237e;
+      font-weight: 600;
+      font-size: 0.88em;
+      padding: 12px 24px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary:hover { opacity: 0.9; }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88em;
+      padding: 12px 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── STATISTIK ── */
+    .stats {
+      background: #fff;
+      border-bottom: 1px solid #e8eaf6;
+    }
+
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 16px 20px;
+      border-right: 1px solid #e8eaf6;
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-item .num {
+      font-size: 2em;
+      font-weight: 700;
+      color: #1a237e;
+      line-height: 1;
+    }
+
+    .stat-item .lbl {
+      font-size: 0.78em;
+      color: #6b7280;
+      margin-top: 6px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .section-header h2 {
+      font-size: 1.5em;
+      font-weight: 700;
+      color: #1a237e;
+    }
+
+    .section-header p {
+      font-size: 0.85em;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .section-header a {
+      font-size: 0.83em;
+      color: #1a237e;
+      font-weight: 600;
+      border: 1px solid #c5cae9;
+      padding: 7px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .section-header a:hover { background: #1a237e; color: #fff; }
+
+    /* ── TENTANG ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      font-size: 1.5em;
+      font-weight: 700;
+      color: #1a237e;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+
+    .about-text p {
+      font-size: 0.9em;
+      color: #4b5563;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .about-img {
+      background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+      border-radius: 16px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5em;
+    }
+
+    /* ── FAKULTAS ── */
+    .bg-light { background: #fff; }
+
+    .fakultas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .fakultas-card {
+      background: #fff;
+      border: 1px solid #e8eaf6;
+      border-radius: 14px;
+      padding: 28px 24px;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .bg-light .fakultas-card { background: #f5f6fa; }
+
+    .fakultas-card:hover {
+      border-color: #7986cb;
+      box-shadow: 0 4px 20px rgba(26,35,126,0.08);
+      transform: translateY(-2px);
+    }
+
+    .fakultas-card .fak-icon {
+      width: 52px;
+      height: 52px;
+      background: #e8eaf6;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      margin-bottom: 16px;
+    }
+
+    .fakultas-card h3 {
+      font-size: 0.97em;
+      font-weight: 700;
+      color: #1a237e;
+      margin-bottom: 8px;
+    }
+
+    .fakultas-card p {
+      font-size: 0.82em;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .fakultas-card .prodi-list {
+      list-style: none;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .fakultas-card .prodi-list li {
+      font-size: 0.8em;
+      color: #374151;
+      padding: 5px 10px;
+      background: #e8eaf6;
+      border-radius: 6px;
+    }
+
+    /* ── BERITA ── */
+    .berita-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .berita-card {
+      background: #fff;
+      border: 1px solid #e8eaf6;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .berita-card:hover {
+      box-shadow: 0 4px 20px rgba(26,35,126,0.08);
+      transform: translateY(-2px);
+    }
+
+    .berita-img {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3em;
+    }
+
+    .bi1 { background: linear-gradient(135deg, #e8eaf6, #9fa8da); }
+    .bi2 { background: linear-gradient(135deg, #e0f2f1, #80cbc4); }
+    .bi3 { background: linear-gradient(135deg, #fff3e0, #ffcc80); }
+
+    .berita-body { padding: 18px; }
+
+    .berita-tag {
+      display: inline-block;
+      font-size: 0.7em;
+      font-weight: 600;
+      color: #1a237e;
+      background: #e8eaf6;
+      padding: 3px 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .berita-body h3 {
+      font-size: 0.9em;
+      font-weight: 600;
+      color: #1a1a2e;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+
+    .berita-body .berita-date {
+      font-size: 0.75em;
+      color: #9ca3af;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a237e;
+      color: #c5cae9;
+      padding: 48px 40px 24px;
+    }
+
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.2fr;
+      gap: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-brand .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand .logo-row .f-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9em;
+    }
+
+    .footer-brand .logo-row span {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.95em;
+    }
+
+    .footer-brand p {
+      font-size: 0.82em;
+      line-height: 1.7;
+      color: #9fa8da;
+    }
+
+    .footer-col h4 {
+      font-size: 0.82em;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.82em;
+      color: #9fa8da;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: #fff; }
+
+    .footer-col .contact-item {
+      font-size: 0.82em;
+      color: #9fa8da;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 20px auto 0;
+      text-align: center;
+      font-size: 0.78em;
+      color: #5c6bc0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <span>🕐 Jam Operasional: 08.00 – 21.00 WIB &nbsp;|&nbsp; 📞 (021) 123-4567</span>
+    <div>
+      <a href="#">Siakad</a>
+      <a href="#">E-Library</a>
+      <a href="#">Email Mahasiswa</a>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">
+      <div class="logo-icon">UTN</div>
+      <div class="logo-text">
+        <h1>Universitas Teknologi Nusantara</h1>
+        <p>Professional Campus For Professional Career</p>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Beranda</a></li>
+      <li><a href="#">Tentang</a></li>
+      <li><a href="#">Fakultas</a></li>
+      <li><a href="#">Beasiswa</a></li>
+      <li><a href="#">Berita</a></li>
+      <li><a href="#">Kontak</a></li>
+      <li class="btn-daftar"><a href="#">Daftar Sekarang</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">🎓 Penerimaan Mahasiswa Baru 2026</span>
+      <h2>Misi Kami Mempersiapkan Anda untuk <span>Masa Depan</span></h2>
+      <p>Universitas Teknologi Nusantara hadir untuk mencetak lulusan profesional yang siap bersaing di era digital. Bergabunglah bersama ribuan mahasiswa berprestasi kami.</p>
+      <div class="hero-btns">
+        <button class="btn-primary">Daftar Sekarang →</button>
+        <button class="btn-outline">Pelajari Lebih Lanjut</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATISTIK -->
+  <div class="stats">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="num">7</div>
+        <div class="lbl">Program Studi</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">3.400+</div>
+        <div class="lbl">Mahasiswa Aktif</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">3</div>
+        <div class="lbl">Fakultas</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">90+</div>
+        <div class="lbl">Dosen Tetap</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TENTANG -->
+  <div style="background:#fff;">
+    <div class="section">
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>Tentang Universitas Teknologi Nusantara</h2>
+          <p>Universitas Teknologi Nusantara adalah perguruan tinggi yang berfokus pada pengembangan ilmu teknologi dan informatika. Berdiri sejak tahun 2000, kampus kami telah menghasilkan ribuan lulusan yang berkiprah di industri teknologi nasional maupun internasional.</p>
+          <p>Dengan visi menjadi pusat pengembangan ilmu pengetahuan dan teknologi bertaraf internasional, kami terus berkomitmen menghadirkan pendidikan berkualitas dengan biaya terjangkau berbasis teknologi.</p>
+          <button class="btn-primary" style="background:#1a237e; color:#fff; margin-top:8px;">Selengkapnya →</button>
+        </div>
+        <div class="about-img">🏛️</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAKULTAS -->
+  <div class="bg-light">
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <h2>Fakultas &amp; Program Studi</h2>
+          <p>Pilih program studi yang sesuai dengan passion kamu</p>
+        </div>
+        <a href="#">Lihat Semua →</a>
+      </div>
+      <div class="fakultas-grid">
+        <div class="fakultas-card">
+          <div class="fak-icon">💻</div>
+          <h3>Fakultas Teknik Informatika</h3>
+          <p>Mencetak ahli teknologi dan pemrograman siap industri.</p>
+          <ul class="prodi-list">
+            <li>S1 Teknik Informatika</li>
+            <li>S1 Sistem Informasi</li>
+            <li>S1 Rekayasa Perangkat Lunak</li>
+          </ul>
+        </div>
+        <div class="fakultas-card">
+          <div class="fak-icon">📊</div>
+          <h3>Fakultas Bisnis &amp; Ekonomi</h3>
+          <p>Mencetak wirausahawan dan profesional bisnis masa depan.</p>
+          <ul class="prodi-list">
+            <li>S1 Manajemen</li>
+            <li>S1 Akuntansi</li>
+          </ul>
+        </div>
+        <div class="fakultas-card">
+          <div class="fak-icon">⚡</div>
+          <h3>Fakultas Teknik Elektro</h3>
+          <p>Mencetak insinyur elektro dan IoT berkompeten tinggi.</p>
+          <ul class="prodi-list">
+            <li>S1 Teknik Elektro</li>
+            <li>S1 Teknik Komputer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BERITA -->
+  <div style="background:#f5f6fa;">
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <h2>Berita &amp; Pengumuman</h2>
+          <p>Informasi terbaru dari seluruh fakultas</p>
+        </div>
+        <a href="#">Berita Lainnya →</a>
+      </div>
+      <div class="berita-grid">
+        <div class="berita-card">
+          <div class="berita-img bi1">🤖</div>
+          <div class="berita-body">
+            <span class="berita-tag">Kegiatan</span>
+            <h3>Workshop Kecerdasan Buatan 2026 Dihadiri 200 Mahasiswa</h3>
+            <div class="berita-date">📅 10 Mei 2026</div>
+          </div>
+        </div>
+        <div class="berita-card">
+          <div class="berita-img bi2">🎓</div>
+          <div class="berita-body">
+            <span class="berita-tag">Akademik</span>
+            <h3>Wisuda Semester Genap: 500 Mahasiswa Raih Gelar Sarjana</h3>
+            <div class="berita-date">📅 3 Mei 2026</div>
+          </div>
+        </div>
+        <div class="berita-card">
+          <div class="berita-img bi3">🏆</div>
+          <div class="berita-body">
+            <span class="berita-tag">Prestasi</span>
+            <h3>Mahasiswa UTN Raih Juara 1 Hackathon Nasional 2026</h3>
+            <div class="berita-date">📅 28 April 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-row">
+          <div class="f-icon">UTN</div>
+          <span>Universitas Teknologi Nusantara</span>
+        </div>
+        <p>Mencetak lulusan profesional yang siap bersaing di era digital. Bergabunglah bersama kami dan raih masa depan cerah.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tautan Cepat</h4>
+        <ul>
+          <li><a href="#">Beranda</a></li>
+          <li><a href="#">Tentang Kami</a></li>
+          <li><a href="#">Fakultas</a></li>
+          <li><a href="#">Beasiswa</a></li>
+          <li><a href="#">Galeri</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Tautan Internal</h4>
+        <ul>
+          <li><a href="#">Siakad Online</a></li>
+          <li><a href="#">E-Library</a></li>
+          <li><a href="#">PMB Online</a></li>
+          <li><a href="#">Email Mahasiswa</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hubungi Kami</h4>
+        <div class="contact-item">📍 Jl. Pendidikan No. 1, Jakarta Selatan</div>
+        <div class="contact-item">📞 (021) 123-4567</div>
+        <div class="contact-item">✉️ info@utn.ac.id</div>
+        <div class="contact-item">🕐 08.00 – 21.00 WIB</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Universitas Teknologi Nusantara. Hak Cipta Dilindungi.
+    </div>
+  </footer>
+
+</body>
+</html>

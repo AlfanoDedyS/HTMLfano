@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burger Nusantara - Fast Food Buatan Lokal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, serif;
+      background-color: #fdf6ec;
+      color: #2c1a0e;
+    }
+
+    /* HEADER */
+    header {
+      background-color: #c0392b;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      font-size: 1em;
+      margin-top: 8px;
+      color: #f9c2ba;
+    }
+
+    /* NAV */
+    nav {
+      background-color: #2c1a0e;
+      text-align: center;
+      padding: 12px;
+    }
+
+    nav a {
+      color: #f5cba7;
+      text-decoration: none;
+      margin: 0 20px;
+      font-size: 1em;
+      letter-spacing: 1px;
+    }
+
+    nav a:hover {
+      color: #c0392b;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* SECTION PRODUK */
+    section {
+      margin-bottom: 40px;
+    }
+
+    section h2 {
+      font-size: 1.8em;
+      color: #c0392b;
+      border-bottom: 2px solid #c0392b;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* GRID PRODUK */
+    .produk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    article {
+      background-color: white;
+      border: 1px solid #f0d9c5;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+    }
+
+    article .icon {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    article h3 {
+      font-size: 1.1em;
+      color: #2c1a0e;
+      margin-bottom: 6px;
+    }
+
+    article p {
+      font-size: 0.9em;
+      color: #7f4f2e;
+      margin-bottom: 10px;
+    }
+
+    article .harga {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #c0392b;
+    }
+
+    /* SECTION KONTAK */
+    .kontak-box {
+      background-color: #2c1a0e;
+      color: #f5cba7;
+      border-radius: 10px;
+      padding: 30px;
+    }
+
+    .kontak-box h2 {
+      color: #f5cba7;
+      border-bottom: 2px solid #c0392b;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    .kontak-box p {
+      margin-bottom: 8px;
+      font-size: 1em;
+    }
+
+    .kontak-box a {
+      color: #c0392b;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #c0392b;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🍔 Burger Nusantara</h1>
+    <p>Fast Food Lokal — Enak, Kenyang, Terjangkau</p>
+  </header>
+
+  <nav>
+    <a href="#">Beranda</a>
+    <a href="#">Menu</a>
+    <a href="#">Promo</a>
+    <a href="#">Kontak</a>
+  </nav>
+
+  <main>
+
+    <section>
+      <h2>Menu Andalan Kami</h2>
+      <div class="produk-grid">
+
+        <article>
+          <div class="icon">🍔</div>
+          <h3>Burger Original</h3>
+          <p>Daging sapi cincang, selada, tomat, saus spesial</p>
+          <span class="harga">Rp 18.000</span>
+        </article>
+
+        <article>
+          <div class="icon">🌶️</div>
+          <h3>Burger Pedas</h3>
+          <p>Daging sapi, sambal matah, cabai rawit, mayonaise</p>
+          <span class="harga">Rp 20.000</span>
+        </article>
+
+        <article>
+          <div class="icon">🍗</div>
+          <h3>Burger Ayam Crispy</h3>
+          <p>Ayam crispy goreng, selada, saus BBQ spesial</p>
+          <span class="harga">Rp 17.000</span>
+        </article>
+
+        <article>
+          <div class="icon">🍟</div>
+          <h3>French Fries</h3>
+          <p>Kentang goreng renyah, tersedia rasa original & balado</p>
+          <span class="harga">Rp 10.000</span>
+        </article>
+
+        <article>
+          <div class="icon">🥤</div>
+          <h3>Minuman Segar</h3>
+          <p>Es teh, es jeruk, air mineral, susu kotak</p>
+          <span class="harga">Mulai Rp 5.000</span>
+        </article>
+
+        <article>
+          <div class="icon">🍱</div>
+          <h3>Paket Hemat</h3>
+          <p>1 Burger + Fries + Minuman pilihan</p>
+          <span class="harga">Rp 28.000</span>
+        </article>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="kontak-box">
+        <h2>📍 Hubungi Kami</h2>
+        <p>📌 Alamat: Serdang Asri Blok R12/43, Panongan, Citra Raya, Tangerang</p>
+        <p>📞 WhatsApp: <a href="#">085289809394</a></p>
+        <p>📷 Instagram: <a href="#">@burgernusantara</a></p>
+        <p>🕐 Jam Buka: Setiap hari, 10.00 – 22.00 WIB</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Copyright 2026 &copy; Burger Nusantara — Fast Food Lokal Terbaik</p>
+  </footer>
+
+</body>
+</html>
