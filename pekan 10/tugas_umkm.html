@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dapur Rempah – UMKM Kuliner Nusantara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ══════════════════════════════════════
+       CSS VARIABLES
+    ══════════════════════════════════════ */
+    :root {
+      --bg:       #0f0d0b;
+      --card:     #1a1612;
+      --card2:    #201c17;
+      --border:   #2e2820;
+      --gold:     #e8a947;
+      --gold-dim: rgba(232,169,71,0.12);
+      --gold-bdr: rgba(232,169,71,0.3);
+      --cream:    #f5ede0;
+      --muted:    #8c7b68;
+      --red:      #e74c3c;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ══════════════════════════════════════
+       NAVBAR  — Flexbox ✅
+    ══════════════════════════════════════ */
+    .navbar {
+      display: flex;                    /* FLEXBOX */
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15,13,11,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 68px;
+      position: sticky;
+      top: 0; z-index: 200;
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 40px; height: 40px;
+      background: var(--gold);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--cream);
+      line-height: 1.1;
+    }
+
+    .brand-name small {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    .nav-links {
+      display: flex; gap: 2px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 8px 16px;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover { background: var(--gold-dim); color: var(--gold); }
+
+    .nav-cta {
+      padding: 9px 22px;
+      background: var(--gold);
+      color: #0f0d0b;
+      border: none; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 10px; cursor: pointer;
+    }
+    .hamburger span {
+      display: block; width: 20px; height: 2px;
+      background: var(--cream); border-radius: 2px; transition: all .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ══════════════════════════════════════
+       HERO SECTION  — HTML5 Semantic ✅
+    ══════════════════════════════════════ */
+    .hero {
+      display: flex;              /* FLEXBOX */
+      align-items: center;
+      gap: 48px;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 80px 40px 72px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-bdr);
+      color: var(--gold);
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--cream);
+    }
+
+    .hero-text h1 em { color: var(--gold); font-style: normal; }
+
+    .hero-text p {
+      color: var(--muted);
+      font-size: 1rem; line-height: 1.75;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-stats {
+      display: flex; gap: 28px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; color: var(--gold);
+      display: block;
+    }
+
+    .stat-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
+
+    .hero-cta {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 12px 28px;
+      background: var(--gold); color: #0f0d0b;
+      border: none; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; transition: opacity .2s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { opacity: .85; }
+
+    .btn-outline {
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+      text-decoration: none;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Hero visual */
+    .hero-visual {
+      flex: 0 0 300px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .food-visual {
+      width: 260px; height: 260px;
+      background: radial-gradient(circle at 40% 40%, #3a2010, #1a0e08);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem;
+      box-shadow: 0 0 80px rgba(232,169,71,0.15), 0 24px 60px rgba(0,0,0,0.6);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 80px rgba(232,169,71,0.15), 0 24px 60px rgba(0,0,0,0.6); }
+      50%      { box-shadow: 0 0 120px rgba(232,169,71,0.28), 0 24px 60px rgba(0,0,0,0.6); }
+    }
+
+    /* ══════════════════════════════════════
+       SECTION HELPER
+    ══════════════════════════════════════ */
+    .section-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 64px 40px 0;
+    }
+
+    .section-head {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .section-head .icon {
+      width: 44px; height: 44px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+
+    .section-head h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--cream); white-space: nowrap;
+    }
+
+    .divider { flex: 1; height: 1px; background: var(--border); }
+
+    /* ══════════════════════════════════════
+       PRODUK SECTION — CSS Grid ✅
+    ══════════════════════════════════════ */
+    .products-grid {
+      display: grid;                         /* CSS GRID */
+      grid-template-columns: repeat(3, 1fr); /* 3 kolom desktop */
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color .25s, transform .25s;
+      cursor: default;
+    }
+
+    .product-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+
+    .product-img {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .product-body { padding: 18px 18px 20px; }
+
+    .product-badges {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      font-size: 0.68rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 999px;
+    }
+
+    .badge-best { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-bdr); }
+    .badge-spicy { background: rgba(231,76,60,.12); color: var(--red); border: 1px solid rgba(231,76,60,.25); }
+    .badge-new { background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.25); }
+
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .product-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+
+    .product-footer {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .product-price { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
+
+    .btn-add {
+      padding: 6px 16px;
+      background: var(--gold-dim); border: 1px solid var(--gold-bdr);
+      color: var(--gold); border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+    }
+    .btn-add:hover { background: var(--gold); color: #0f0d0b; }
+
+    /* ══════════════════════════════════════
+       TENTANG KAMI  — HTML5 Semantic ✅
+    ══════════════════════════════════════ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 64px;
+      align-items: center;
+    }
+
+    .about-visual {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      height: 320px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 14px;
+    }
+
+    .about-emoji { font-size: 4.5rem; }
+
+    .about-tag {
+      font-size: 0.78rem; color: var(--muted); font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    .about-content .badge-wrap {
+      display: inline-block;
+      background: var(--gold-dim); border: 1px solid var(--gold-bdr);
+      color: var(--gold); font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 999px; margin-bottom: 18px;
+    }
+
+    .about-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; line-height: 1.2; margin-bottom: 14px;
+    }
+    .about-content h2 em { color: var(--gold); font-style: normal; }
+
+    .about-content p { color: var(--muted); font-size: 0.93rem; line-height: 1.75; margin-bottom: 22px; }
+
+    .keunggulan-list {
+      display: flex; flex-direction: column; gap: 10px;
+      list-style: none;
+    }
+
+    .keunggulan-list li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: var(--cream);
+    }
+
+    .keunggulan-list li::before {
+      content: '✦';
+      color: var(--gold); font-size: 0.7rem; flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════
+       KONTAK  — HTML5 Semantic ✅
+    ══════════════════════════════════════ */
+    .kontak-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .kontak-info {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+    }
+
+    .kontak-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; color: var(--cream); margin-bottom: 20px;
+    }
+
+    .kontak-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .kontak-row:last-child { margin-bottom: 0; }
+
+    .kontak-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--gold-dim); border: 1px solid var(--gold-bdr);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+
+    .kontak-detail { flex: 1; }
+    .kontak-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+    .kontak-val { font-size: 0.9rem; color: var(--cream); font-weight: 500; }
+
+    .kontak-form {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+    }
+
+    .kontak-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; color: var(--cream); margin-bottom: 20px;
+    }
+
+    .form-group { margin-bottom: 14px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.73rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px;
+      color: var(--cream); font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; outline: none;
+      transition: border-color .2s; resize: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--muted); }
+
+    .btn-send {
+      width: 100%;
+      padding: 12px;
+      background: var(--gold); color: #0f0d0b;
+      border: none; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; transition: opacity .2s;
+      margin-top: 4px;
+    }
+    .btn-send:hover { opacity: .85; }
+
+    /* ══════════════════════════════════════
+       FOOTER  — HTML5 Semantic ✅
+    ══════════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    .footer-main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 48px 40px 32px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--cream); margin-bottom: 10px;
+    }
+
+    .footer-brand h3 span { color: var(--gold); }
+
+    .footer-brand p { color: var(--muted); font-size: 0.85rem; line-height: 1.65; max-width: 280px; }
+
+    .footer-col h4 {
+      font-size: 0.72rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .footer-col ul li a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.88rem; transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1120px; margin: 0 auto;
+    }
+
+    .footer-bottom p { color: var(--muted); font-size: 0.8rem; }
+
+    .footer-badge {
+      display: flex; gap: 6px;
+    }
+
+    .tech-badge {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.7rem;
+      padding: 3px 10px; border-radius: 999px;
+    }
+
+    /* ══════════════════════════════════════
+       MEDIA QUERY — Responsive ✅
+    ══════════════════════════════════════ */
+
+    /* TABLET ≤ 900px */
+    @media (max-width: 900px) {
+      .navbar { padding: 0 20px; }
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none; flex-direction: column;
+        position: absolute; top: 68px; left: 0; right: 0;
+        background: var(--card);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 20px 20px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-cta { display: none; }
+
+      .hero { flex-direction: column; text-align: center; padding: 56px 24px 48px; gap: 36px; }
+      .hero-stats { justify-content: center; }
+      .hero-cta { justify-content: center; }
+      .hero-visual { flex: none; }
+      .hero-text p { margin-left: auto; margin-right: auto; }
+
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .about-grid { grid-template-columns: 1fr; }
+      .about-visual { height: 200px; }
+
+      .kontak-grid { grid-template-columns: 1fr; }
+
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .footer-brand { grid-column: span 2; }
+
+      .section-wrap { padding: 48px 24px 0; }
+    }
+
+    /* MOBILE ≤ 520px */
+    @media (max-width: 520px) {
+      .hero { padding: 40px 16px 36px; }
+      .hero-text h1 { font-size: 2rem; }
+
+      .products-grid { grid-template-columns: 1fr; }
+
+      .footer-main { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: span 1; }
+
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; padding: 16px 20px; }
+      .footer-badge { flex-wrap: wrap; justify-content: center; }
+
+      .section-wrap { padding: 36px 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR — Flexbox ✅ ══ -->
+  <nav class="navbar">
+    <a class="nav-brand" href="#">
+      <div class="brand-logo">🍛</div>
+      <div class="brand-name">
+        Dapur Rempah
+        <small>UMKM Kuliner Nusantara</small>
+      </div>
+    </a>
+
+    <button class="hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Beranda</a></li>
+      <li><a href="#produk">Menu</a></li>
+      <li><a href="#tentang">Tentang</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
+
+    <a href="#kontak" class="nav-cta">Pesan Sekarang</a>
+  </nav>
+
+  <!-- ══ HERO SECTION ✅ ══ -->
+  <section id="hero" class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">🌿 Sejak 2015 · Dibuat dengan Cinta</div>
+      <h1>Cita Rasa <em>Nusantara</em><br>di Setiap Suapan</h1>
+      <p>
+        Dapur Rempah menghadirkan masakan tradisional Indonesia yang dimasak
+        dari bahan segar pilihan dan bumbu rempah asli, siap mengobati rindumu
+        akan masakan rumah.
+      </p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Menu Pilihan</span></div>
+        <div class="stat"><span class="stat-num">1000+</span><span class="stat-label">Pelanggan</span></div>
+        <div class="stat"><span class="stat-num">9 Thn</span><span class="stat-label">Pengalaman</span></div>
+      </div>
+      <div class="hero-cta">
+        <a href="#produk" class="btn-primary">Lihat Menu →</a>
+        <a href="#tentang" class="btn-outline">Tentang Kami</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="food-visual">🍛</div>
+    </div>
+  </section>
+
+  <!-- ══ PRODUK / MENU — CSS Grid ✅ ══ -->
+  <section id="produk" class="section-wrap">
+    <div class="section-head">
+      <div class="icon">🍽️</div>
+      <h2>Menu Unggulan</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img" style="background:linear-gradient(135deg,#3a1a0a,#7c3a0f)">🍛</div>
+        <div class="product-body">
+          <div class="product-badges">
+            <span class="badge badge-best">⭐ Best Seller</span>
+          </div>
+          <div class="product-name">Nasi Rendang Padang</div>
+          <div class="product-desc">Rendang daging sapi empuk dimasak 3 jam dengan 17 jenis rempah pilihan, disajikan dengan nasi putih hangat.</div>
+          <div class="product-footer">
+            <span class="product-price">Rp 32.000</span>
+            <button class="btn-add">+ Pesan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:linear-gradient(135deg,#1a3a0a,#3a7c0f)">🥘</div>
+        <div class="product-body">
+          <div class="product-badges">
+            <span class="badge badge-spicy">🌶 Pedas</span>
+          </div>
+          <div class="product-name">Gulai Ayam Kampung</div>
+          <div class="product-desc">Ayam kampung segar dalam kuah gulai kuning kental, kaya santan dan rempah, pedas menggugah selera.</div>
+          <div class="product-footer">
+            <span class="product-price">Rp 28.000</span>
+            <button class="btn-add">+ Pesan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:linear-gradient(135deg,#0a1a3a,#0f3a7c)">🐟</div>
+        <div class="product-body">
+          <div class="product-badges">
+            <span class="badge badge-new">✨ Baru</span>
+          </div>
+          <div class="product-name">Ikan Bakar Bumbu Bali</div>
+          <div class="product-desc">Ikan segar pilihan dimarinasi bumbu Bali autentik, dibakar sempurna, disajikan dengan sambal matah.</div>
+          <div class="product-footer">
+            <span class="product-price">Rp 35.000</span>
+            <button class="btn-add">+ Pesan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:linear-gradient(135deg,#2a0a0a,#7c1a0f)">🍲</div>
+        <div class="product-body">
+          <div class="product-badges">
+            <span class="badge badge-best">⭐ Best Seller</span>
+            <span class="badge badge-spicy">🌶 Pedas</span>
+          </div>
+          <div class="product-name">Soto Betawi</div>
+          <div class="product-desc">Kuah soto santan kental dengan daging sapi, jeroan pilihan, dan topping lengkap. Hangat dan mengenyangkan.</div>
+          <div class="product-footer">
+            <span class="product-price">Rp 26.000</span>
+            <button class="btn-add">+ Pesan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:linear-gradient(135deg,#2a2a0a,#7c7a0f)">🥗</div>
+        <div class="product-body">
+          <div class="product-badges">
+            <span class="badge badge-new">✨ Baru</span>
+          </div>
+          <div class="product-name">Gado-Gado Spesial</div>
+          <div class="product-desc">Sayuran segar rebus, tempe, tahu, telur, kerupuk, disiram saus kacang homemade yang gurih legit.</div>
+          <div class="product-footer">
+            <span class="product-price">Rp 20.000</span>
+            <button class="btn-add">+ Pesan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:linear-gradient(135deg,#1a0a2a,#5a0f7c)">🍢</div>
+        <div class="product-body">
+          <div class="product-badges">
+            <span class="badge badge-best">⭐ Favorit</span>
+          </div>
+          <div class="product-name">Sate Madura Komplit</div>
+          <div class="product-desc">10 tusuk sate ayam/kambing dengan bumbu kecap dan saus kacang, disajikan dengan lontong dan acar.</div>
+          <div class="product-footer">
+            <span class="product-price">Rp 30.000</span>
+            <button class="btn-add">+ Pesan</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ TENTANG KAMI ✅ ══ -->
+  <section id="tentang" class="section-wrap">
+    <div class="section-head">
+      <div class="icon">🏪</div>
+      <h2>Tentang Kami</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-emoji">👩‍🍳</div>
+        <div class="about-tag">Ibu Sari — Pendiri Dapur Rempah</div>
+      </div>
+      <div class="about-content">
+        <div class="badge-wrap">🌿 Kisah Kami</div>
+        <h2>Masakan <em>Rumahan</em><br>yang Mendunia</h2>
+        <p>
+          Dapur Rempah lahir dari kecintaan Ibu Sari pada masakan tradisional Indonesia.
+          Berawal dari dapur rumah di Bandung pada tahun 2015, kini kami telah melayani
+          ribuan pelanggan setia setiap harinya.
+        </p>
+        <p>
+          Kami berkomitmen untuk menggunakan bahan-bahan segar berkualitas tinggi dan
+          resep turun-temurun yang telah teruji selama puluhan tahun — tanpa pengawet,
+          tanpa MSG berlebih, penuh cinta.
+        </p>
+        <ul class="keunggulan-list">
+          <li>Bahan segar pilihan langsung dari petani lokal</li>
+          <li>Resep autentik turun-temurun 3 generasi</li>
+          <li>Tanpa pengawet dan pewarna buatan</li>
+          <li>Proses memasak higienis dan bersertifikat halal</li>
+          <li>Melayani dine-in, take-away, dan katering</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ KONTAK ✅ ══ -->
+  <section id="kontak" class="section-wrap">
+    <div class="section-head">
+      <div class="icon">📬</div>
+      <h2>Hubungi Kami</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="kontak-grid">
+      <div class="kontak-info">
+        <h3>Informasi Kontak</h3>
+
+        <div class="kontak-row">
+          <div class="kontak-icon">📍</div>
+          <div class="kontak-detail">
+            <div class="kontak-label">Alamat</div>
+            <div class="kontak-val">Jl. Sudirman No. 45, Bandung, Jawa Barat 40123</div>
+          </div>
+        </div>
+
+        <div class="kontak-row">
+          <div class="kontak-icon">📞</div>
+          <div class="kontak-detail">
+            <div class="kontak-label">Telepon / WhatsApp</div>
+            <div class="kontak-val">+62 812-3456-7890</div>
+          </div>
+        </div>
+
+        <div class="kontak-row">
+          <div class="kontak-icon">📧</div>
+          <div class="kontak-detail">
+            <div class="kontak-label">Email</div>
+            <div class="kontak-val">dapur.rempah@email.com</div>
+          </div>
+        </div>
+
+        <div class="kontak-row">
+          <div class="kontak-icon">🕐</div>
+          <div class="kontak-detail">
+            <div class="kontak-label">Jam Operasional</div>
+            <div class="kontak-val">Senin – Minggu, 08.00 – 21.00 WIB</div>
+          </div>
+        </div>
+
+        <div class="kontak-row">
+          <div class="kontak-icon">🚗</div>
+          <div class="kontak-detail">
+            <div class="kontak-label">Layanan</div>
+            <div class="kontak-val">Dine-in · Take-away · Delivery · Katering</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kontak-form">
+        <h3>Kirim Pesan</h3>
+        <div class="form-group">
+          <label>Nama Lengkap</label>
+          <input type="text" placeholder="Masukkan nama Anda" />
+        </div>
+        <div class="form-group">
+          <label>Nomor WhatsApp</label>
+          <input type="text" placeholder="Contoh: 0812-xxxx-xxxx" />
+        </div>
+        <div class="form-group">
+          <label>Pesanan / Pertanyaan</label>
+          <textarea rows="4" placeholder="Tulis pesanan atau pertanyaan Anda..."></textarea>
+        </div>
+        <button class="btn-send" onclick="kirimPesan(this)">Kirim Pesan →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ✅ ══ -->
+  <footer>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <h3>Dapur <span>Rempah</span></h3>
+        <p>UMKM kuliner yang menghadirkan cita rasa masakan Nusantara autentik dengan bahan segar berkualitas, melayani dengan sepenuh hati sejak 2015.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#">Nasi & Lauk</a></li>
+          <li><a href="#">Sayur & Sup</a></li>
+          <li><a href="#">Sate & Bakar</a></li>
+          <li><a href="#">Minuman</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#">Dine-in</a></li>
+          <li><a href="#">Take-away</a></li>
+          <li><a href="#">Delivery</a></li>
+          <li><a href="#">Katering</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 Dapur Rempah · Dibuat dengan ❤️ untuk Praktikum Web Design</p>
+      <div class="footer-badge">
+        <span class="tech-badge">HTML5</span>
+        <span class="tech-badge">CSS3</span>
+        <span class="tech-badge">Flexbox</span>
+        <span class="tech-badge">Grid</span>
+        <span class="tech-badge">Responsive</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger toggle
+    document.getElementById('ham').addEventListener('click', function () {
+      this.classList.toggle('open');
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Smooth active nav
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function () {
+        document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Kirim pesan dummy
+    function kirimPesan(btn) {
+      btn.textContent = '✅ Pesan Terkirim!';
+      btn.style.background = '#27ae60';
+      setTimeout(() => {
+        btn.textContent = 'Kirim Pesan →';
+        btn.style.background = '';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

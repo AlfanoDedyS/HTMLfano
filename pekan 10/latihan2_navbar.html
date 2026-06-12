@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Latihan 2 – Navbar Flexbox</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ══════════════════════════════
+       CSS VARIABLES
+    ══════════════════════════════ */
+    :root {
+      --bg:      #0f0d0b;
+      --card:    #1a1612;
+      --border:  #2e2820;
+      --gold:    #e8a947;
+      --cream:   #f5ede0;
+      --muted:   #8c7b68;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ══════════════════════════════
+       NAVBAR  — menggunakan Flexbox
+    ══════════════════════════════ */
+    .navbar {
+      display: flex;                   /* FLEXBOX */
+      justify-content: space-between;  /* logo | links | tombol */
+      align-items: center;             /* rata tengah vertikal */
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 36px;
+      height: 66px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* ── Brand / Logo ── */
+    .nav-brand {
+      display: flex;         /* FLEXBOX dalam brand */
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--gold);
+      border-radius: 10px;
+      display: flex;         /* FLEXBOX untuk centering icon */
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .brand-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--cream);
+    }
+
+    .brand-text span { color: var(--gold); }
+
+    /* ── Nav Links (tengah) ── */
+    .nav-links {
+      display: flex;         /* FLEXBOX — link berjajar horizontal */
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 8px 16px;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(232,169,71,0.12);
+      color: var(--gold);
+    }
+
+    /* ── Tombol aksi (kanan) ── */
+    .nav-actions {
+      display: flex;         /* FLEXBOX */
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-ghost {
+      padding: 8px 18px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-solid {
+      padding: 8px 20px;
+      background: var(--gold);
+      border: none;
+      color: #0f0d0b;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-solid:hover { opacity: 0.85; }
+
+    /* ── Hamburger (tersembunyi di desktop) ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--cream);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    .hero {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 72px 28px 56px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;    /* FLEXBOX */
+      align-items: center;
+      gap: 6px;
+      background: rgba(232,169,71,0.12);
+      border: 1px solid rgba(232,169,71,0.3);
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 em { color: var(--gold); font-style: normal; }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Penjelasan properti Flexbox ── */
+    .flex-demo {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      max-width: 720px;
+      margin: 0 auto 24px;
+      text-align: left;
+    }
+
+    .flex-demo h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--cream);
+      margin-bottom: 18px;
+      display: flex;        /* FLEXBOX */
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flex-demo h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .props-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .prop-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: border-color 0.2s;
+    }
+
+    .prop-card:hover { border-color: var(--gold); }
+
+    .prop-name {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .prop-val {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    .footer {
+      text-align: center;
+      padding: 28px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 40px;
+    }
+
+    /* ══════════════════════════════
+       MEDIA QUERY — Responsive
+    ══════════════════════════════ */
+    @media (max-width: 768px) {
+      .navbar { padding: 0 18px; }
+
+      .hamburger { display: flex; }  /* tampilkan hamburger */
+
+      .nav-links {
+        display: none;               /* sembunyikan di mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 66px;
+        left: 0; right: 0;
+        background: var(--card);
+        padding: 14px 18px 20px;
+        border-bottom: 1px solid var(--border);
+        gap: 2px;
+      }
+
+      .nav-links.open { display: flex; }  /* tampil saat hamburger diklik */
+
+      .nav-actions { display: none; }
+
+      .props-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar">
+
+    <!-- Hamburger (hanya mobile) -->
+    <button class="hamburger" id="ham" aria-label="Buka menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav Links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" class="active">Beranda</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Tentang</a></li>
+      <li><a href="#">Kontak</a></li>
+    </ul>
+
+    <!-- Kanan: Tombol Masuk saja -->
+    <div class="nav-actions">
+      <button class="btn-ghost">Masuk</button>
+    </div>
+
+  </nav>
+
+  <!-- ══ KONTEN ══ -->
+  <main>
+    <div class="hero">
+      <div class="hero-badge">✦ Latihan 2 — Flexbox Navbar</div>
+      <h1>Navbar Dibuat dengan<br><em>CSS Flexbox</em></h1>
+      <p>
+        Navbar di atas menggunakan <code style="background:rgba(232,169,71,0.15);color:var(--gold);padding:2px 7px;border-radius:4px">display: flex</code>
+        untuk menyusun logo, link, dan tombol secara horizontal dan sejajar secara vertikal.
+        Coba perkecil jendela browser untuk melihat tampilan mobile!
+      </p>
+    </div>
+
+    <div class="flex-demo">
+      <h2>🧩 Properti Flexbox yang Digunakan</h2>
+      <div class="props-grid">
+        <div class="prop-card">
+          <div class="prop-name">display: flex</div>
+          <div class="prop-val">Mengaktifkan Flexbox pada elemen .navbar sehingga child menjadi flex item</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">justify-content: space-between</div>
+          <div class="prop-val">Menyebar logo, link, dan tombol ke kiri-tengah-kanan secara otomatis</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">align-items: center</div>
+          <div class="prop-val">Meratakan semua item navbar ke tengah secara vertikal</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">gap: 4px</div>
+          <div class="prop-val">Memberi jarak antar link navigasi tanpa perlu margin manual</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">flex-direction: column</div>
+          <div class="prop-val">Digunakan di mobile agar link tersusun vertikal saat hamburger dibuka</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">flex: 1</div>
+          <div class="prop-val">Membuat elemen mengisi sisa ruang yang tersedia (dipakai pada divider)</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Latihan 2 · CSS Flexbox Navbar · Praktikum Web Design
+  </footer>
+
+  <script>
+    // Hamburger toggle untuk mobile
+    document.getElementById('ham').addEventListener('click', function () {
+      this.classList.toggle('open');
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Active link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

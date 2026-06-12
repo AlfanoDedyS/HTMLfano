@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <!-- VIEWPORT WAJIB untuk responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Latihan 4 – Responsive Design & Media Query</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #0f0d0b;
+      --card:   #1a1612;
+      --border: #2e2820;
+      --gold:   #e8a947;
+      --cream:  #f5ede0;
+      --muted:  #8c7b68;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 62px;
+      position: sticky; top: 0; z-index: 100;
+    }
+
+    .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); }
+    .nav-brand span { color: var(--gold); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+    .hamburger span { display: block; width: 20px; height: 2px; background: var(--cream); border-radius: 2px; transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-links { display: flex; gap: 4px; list-style: none; }
+    .nav-links a { padding: 7px 14px; color: var(--muted); text-decoration: none; border-radius: 8px; font-size: .9rem; font-weight: 500; transition: all .2s; }
+    .nav-links a:hover, .nav-links a.active { background: rgba(232,169,71,.12); color: var(--gold); }
+
+    /* ── BREAKPOINT BANNER ── */
+    .bp-banner {
+      padding: 10px 24px;
+      text-align: center;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .bp-desktop { display: none; background: rgba(232,169,71,.08); color: var(--gold); }
+    .bp-tablet  { display: none; background: rgba(56,189,248,.08);  color: #38bdf8; }
+    .bp-mobile  { display: none; background: rgba(167,139,250,.08); color: #a78bfa; }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 72px 32px 56px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(232,169,71,.12);
+      border: 1px solid rgba(232,169,71,.3);
+      color: var(--gold);
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 16px; border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
+      line-height: 1.15; margin-bottom: 14px;
+    }
+
+    .hero-text h1 em { color: var(--gold); font-style: normal; }
+
+    .hero-text p { color: var(--muted); font-size: .97rem; line-height: 1.7; margin-bottom: 28px; }
+
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-gold {
+      padding: 11px 26px;
+      background: var(--gold); color: #0f0d0b;
+      border: none; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 700;
+      cursor: pointer; transition: opacity .2s; text-decoration: none;
+    }
+    .btn-gold:hover { opacity: .85; }
+
+    .btn-ghost {
+      padding: 11px 26px;
+      background: transparent;
+      border: 1px solid var(--border); color: var(--muted);
+      border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 600;
+      cursor: pointer; transition: all .2s; text-decoration: none;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-visual {
+      flex: 0 0 240px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .phone-frame {
+      width: 150px; height: 280px;
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 28px;
+      padding: 12px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.5);
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    .phone-bar { height: 9px; background: var(--border); border-radius: 4px; }
+    .phone-bar.gold { background: var(--gold); width: 60%; }
+    .phone-bar.short { width: 40%; }
+    .phone-img-placeholder {
+      flex: 1; background: linear-gradient(135deg,#1a1612,#2e2820);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 56px 32px 0;
+    }
+
+    .section-head {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--cream); white-space: nowrap;
+    }
+
+    .section-head .icon {
+      width: 42px; height: 42px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+
+    .divider { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      display: grid;                          /* CSS GRID */
+      grid-template-columns: repeat(3, 1fr); /* 3 kolom desktop */
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 20px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .info-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+
+    .card-icon { font-size: 1.6rem; margin-bottom: 12px; }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--cream); margin-bottom: 6px;
+    }
+
+    .card-desc { font-size: .85rem; color: var(--muted); line-height: 1.65; }
+
+    .card-code {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-family: 'Courier New', monospace;
+      font-size: .78rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* ── BREAKPOINT TABLE ── */
+    .table-wrap { overflow-x: auto; margin-bottom: 48px; }
+
+    .bp-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 14px;
+      overflow: hidden;
+      font-size: .9rem;
+    }
+
+    .bp-table th {
+      background: rgba(232,169,71,.15);
+      color: var(--gold);
+      text-align: left;
+      padding: 14px 20px;
+      font-weight: 600;
+      font-size: .8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bp-table td {
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .bp-table td:first-child { color: var(--cream); font-weight: 500; }
+    .bp-table tbody tr:last-child td { border-bottom: none; }
+    .bp-table tbody tr:hover td { background: rgba(232,169,71,.04); }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 28px 24px 0;
+      color: var(--muted);
+      font-size: .82rem;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    /* ══════════════════════════════════
+       MEDIA QUERY — Responsive Design
+       Breakpoint:
+         ≤ 768px  → Tablet
+         ≤ 480px  → Mobile
+    ══════════════════════════════════ */
+
+    /* DESKTOP default (> 768px) */
+    @media (min-width: 769px) {
+      .bp-desktop { display: block; }
+    }
+
+    /* TABLET */
+    @media (max-width: 768px) {
+      .bp-tablet { display: block; }
+
+      .hamburger { display: flex; }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 62px; left: 0; right: 0;
+        background: var(--card);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 20px 20px;
+      }
+      .nav-links.open { display: flex; }
+
+      .hero {
+        flex-direction: column;   /* tumpuk vertikal */
+        text-align: center;
+        padding: 48px 24px 40px;
+        gap: 32px;
+      }
+
+      .hero-cta { justify-content: center; }
+      .hero-visual { flex: none; }
+
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }  /* 2 kolom */
+
+      .section-wrap { padding: 40px 20px 0; }
+    }
+
+    /* MOBILE */
+    @media (max-width: 480px) {
+      .bp-tablet { display: none; }
+      .bp-mobile { display: block; }
+
+      .navbar { padding: 0 16px; }
+
+      .hero { padding: 36px 16px 32px; }
+      .hero-text h1 { font-size: 1.75rem; }
+
+      .cards-grid { grid-template-columns: 1fr; }   /* 1 kolom */
+
+      .section-wrap { padding: 32px 16px 0; }
+
+      .section-head h2 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">Responsif<span>Ku</span></div>
+    <button class="hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav">
+      <li><a href="#" class="active">Beranda</a></li>
+      <li><a href="#">Materi</a></li>
+      <li><a href="#">Tentang</a></li>
+    </ul>
+  </nav>
+
+  <!-- BREAKPOINT BANNER -->
+  <div class="bp-banner bp-desktop">🖥️ Desktop Mode — Grid 3 Kolom Aktif (lebar > 768px)</div>
+  <div class="bp-banner bp-tablet">📟 Tablet Mode — Grid 2 Kolom Aktif (≤ 768px)</div>
+  <div class="bp-banner bp-mobile">📱 Mobile Mode — Grid 1 Kolom + Hamburger Aktif (≤ 480px)</div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">✦ Latihan 4 — Responsive Design</div>
+      <h1>Website yang Tampil <em>Sempurna</em><br>di Semua Layar</h1>
+      <p>
+        Halaman ini menggunakan <code style="background:rgba(232,169,71,.12);color:var(--gold);padding:2px 6px;border-radius:4px">@media query</code>
+        untuk menyesuaikan layout pada desktop, tablet, dan smartphone.
+        Ubah ukuran jendela browser untuk melihat perubahan!
+      </p>
+      <div class="hero-cta">
+        <a href="#materi" class="btn-gold">Lihat Materi</a>
+        <a href="#tabel" class="btn-ghost">Tabel Breakpoint</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-frame">
+        <div class="phone-bar gold"></div>
+        <div class="phone-bar"></div>
+        <div class="phone-img-placeholder">📱</div>
+        <div class="phone-bar short"></div>
+        <div class="phone-bar"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <div class="section-wrap" id="materi">
+    <div class="section-head">
+      <div class="icon">📐</div>
+      <h2>Konsep yang Dipelajari</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cards-grid">
+      <div class="info-card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Viewport Meta Tag</div>
+        <div class="card-desc">Wajib ada di setiap website modern agar skala layar mobile benar.</div>
+        <div class="card-code">&lt;meta name="viewport"&gt;</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">📏</div>
+        <div class="card-title">Media Query</div>
+        <div class="card-desc">Mengubah tampilan berdasarkan lebar layar menggunakan @media.</div>
+        <div class="card-code">@media (max-width: 768px)</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">🗂️</div>
+        <div class="card-title">CSS Grid Responsif</div>
+        <div class="card-desc">Kolom grid berubah: 3 kolom → 2 kolom → 1 kolom sesuai layar.</div>
+        <div class="card-code">grid-template-columns</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">↔️</div>
+        <div class="card-title">Flexbox Responsif</div>
+        <div class="card-desc">Navbar berubah dari horizontal menjadi hamburger menu di mobile.</div>
+        <div class="card-code">flex-direction: column</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">🔡</div>
+        <div class="card-title">Fluid Typography</div>
+        <div class="card-desc">Ukuran teks menyesuaikan layar menggunakan fungsi clamp().</div>
+        <div class="card-code">clamp(1.8rem, 4vw, 3rem)</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">📲</div>
+        <div class="card-title">Mobile First Design</div>
+        <div class="card-desc">Desain dimulai dari layar kecil, diperbesar — best practice industri.</div>
+        <div class="card-code">min-width: 769px</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABEL BREAKPOINT -->
+  <div class="section-wrap" id="tabel">
+    <div class="section-head">
+      <div class="icon">📊</div>
+      <h2>Tabel Breakpoint</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="table-wrap">
+      <table class="bp-table">
+        <thead>
+          <tr>
+            <th>Perangkat</th>
+            <th>Lebar Layar</th>
+            <th>Grid Kolom</th>
+            <th>Navbar</th>
+            <th>Hero Layout</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🖥️ Desktop</td>
+            <td>&gt; 768px</td>
+            <td>3 kolom</td>
+            <td>Horizontal penuh</td>
+            <td>2 kolom (teks + visual)</td>
+          </tr>
+          <tr>
+            <td>📟 Tablet</td>
+            <td>481 – 768px</td>
+            <td>2 kolom</td>
+            <td>Horizontal (links tersembunyi)</td>
+            <td>1 kolom (teks di atas)</td>
+          </tr>
+          <tr>
+            <td>📱 Mobile</td>
+            <td>≤ 480px</td>
+            <td>1 kolom</td>
+            <td>Hamburger menu</td>
+            <td>1 kolom (kompak)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Latihan 4 · Responsive Design & Media Query · Praktikum Web Design</p>
+  </footer>
+
+  <script>
+    document.getElementById('ham').addEventListener('click', function () {
+      this.classList.toggle('open');
+      document.getElementById('nav').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
