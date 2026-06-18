@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Validasi Form</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        input{
+            padding:10px;
+            width:250px;
+        }
+
+        button{
+            padding:10px 20px;
+        }
+
+        #pesan{
+            margin-top:15px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Form Nama Mahasiswa</h2>
+
+    <input type="text" id="nama" placeholder="Masukkan Nama">
+
+    <br><br>
+
+    <button onclick="cekNama()">
+        Submit
+    </button>
+
+    <p id="pesan"></p>
+
+    <script>
+
+        function cekNama(){
+
+            let nama =
+            document.getElementById("nama").value;
+
+            if(nama === ""){
+                document.getElementById("pesan").innerHTML =
+                "❌ Nama wajib diisi";
+            }
+            else{
+                document.getElementById("pesan").innerHTML =
+                "✅ Halo, " + nama;
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>

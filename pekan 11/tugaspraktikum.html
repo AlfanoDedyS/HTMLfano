@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Data Mahasiswa</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#1e3a8a,#0f172a);
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.header{
+    background:#2563eb;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.content{
+    padding:25px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.btn{
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+    margin-right:10px;
+}
+
+.simpan{
+    background:#16a34a;
+}
+
+.tampil{
+    background:#2563eb;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+.hapus{
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.statistik{
+    margin-top:25px;
+    padding:20px;
+    background:#f1f5f9;
+    border-radius:10px;
+}
+
+.footer{
+    text-align:center;
+    padding:15px;
+    background:#f8fafc;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+    <h1>Sistem Data Mahasiswa</h1>
+    <p>Tugas Praktikum JavaScript</p>
+</div>
+
+<div class="content">
+
+    <div class="form-group">
+        <label>Nama Mahasiswa</label>
+        <input type="text" id="nama">
+    </div>
+
+    <div class="form-group">
+        <label>Nilai</label>
+        <input type="number" id="nilai">
+    </div>
+
+    <button class="btn simpan" onclick="simpanData()">
+        Simpan Data
+    </button>
+
+    <button class="btn tampil" onclick="tampilkanData()">
+        Tampilkan Data
+    </button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Nilai</th>
+                <th>Grade</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabelData">
+
+        </tbody>
+
+    </table>
+
+    <div class="statistik">
+
+        <h3>Statistik Kelas</h3>
+
+        <p>Total Mahasiswa :
+            <span id="totalMahasiswa">0</span>
+        </p>
+
+        <p>Rata-rata Nilai :
+            <span id="rataNilai">0</span>
+        </p>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    Dibuat oleh Alfano | Sistem Data Mahasiswa
+</div>
+
+</div>
+
+<script>
+
+let dataMahasiswa = [];
+
+function tentukanGrade(nilai){
+
+    if(nilai >= 85){
+        return "A";
+    }
+    else if(nilai >= 75){
+        return "B";
+    }
+    else if(nilai >= 65){
+        return "C";
+    }
+    else{
+        return "D";
+    }
+}
+
+function simpanData(){
+
+    let nama =
+    document.getElementById("nama").value;
+
+    let nilai =
+    Number(document.getElementById("nilai").value);
+
+    if(nama == "" || nilai == ""){
+        alert("Data belum lengkap!");
+        return;
+    }
+
+    let mahasiswa = {
+        nama:nama,
+        nilai:nilai,
+        grade:tentukanGrade(nilai)
+    };
+
+    dataMahasiswa.push(mahasiswa);
+
+    document.getElementById("nama").value = "";
+    document.getElementById("nilai").value = "";
+
+    alert("Data berhasil disimpan!");
+}
+
+function tampilkanData(){
+
+    let isiTabel = "";
+
+    let totalNilai = 0;
+
+    for(let i=0; i<dataMahasiswa.length; i++){
+
+        totalNilai += dataMahasiswa[i].nilai;
+
+        isiTabel += `
+        <tr>
+            <td>${i+1}</td>
+            <td>${dataMahasiswa[i].nama}</td>
+            <td>${dataMahasiswa[i].nilai}</td>
+            <td>${dataMahasiswa[i].grade}</td>
+            <td>
+                <button class="hapus"
+                onclick="hapusData(${i})">
+                Hapus
+                </button>
+            </td>
+        </tr>
+        `;
+    }
+
+    document.getElementById("tabelData").innerHTML =
+    isiTabel;
+
+    document.getElementById("totalMahasiswa").innerHTML =
+    dataMahasiswa.length;
+
+    let rata =
+    dataMahasiswa.length > 0
+    ? (totalNilai / dataMahasiswa.length).toFixed(2)
+    : 0;
+
+    document.getElementById("rataNilai").innerHTML =
+    rata;
+}
+
+function hapusData(index){
+
+    dataMahasiswa.splice(index,1);
+
+    tampilkanData();
+}
+
+</script>
+
+</body>
+</html>

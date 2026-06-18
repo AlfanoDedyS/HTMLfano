@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Project - Biodata Mahasiswa</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.header{
+    background:#2563eb;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.header h1{
+    margin-bottom:5px;
+}
+
+.content{
+    padding:30px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn{
+    background:#2563eb;
+    color:white;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.card{
+    margin-top:30px;
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:20px;
+    display:none;
+    text-align:center;
+    animation:fade 0.5s;
+}
+
+.card img{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:50%;
+    border:5px solid #2563eb;
+}
+
+.card h2{
+    margin-top:15px;
+}
+
+.info{
+    margin-top:15px;
+    text-align:left;
+}
+
+.info p{
+    margin:10px 0;
+}
+
+.link-btn{
+    margin-top:20px;
+}
+
+.link-btn button{
+    background:#16a34a;
+    color:white;
+}
+
+.link-btn button:hover{
+    background:#15803d;
+}
+
+.footer{
+    text-align:center;
+    padding:15px;
+    background:#f1f5f9;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Mini Project Biodata Mahasiswa</h1>
+        <p>JavaScript & DOM</p>
+    </div>
+
+    <div class="content">
+
+        <div class="form-group">
+            <label>Nama</label>
+            <input type="text" id="nama">
+        </div>
+
+        <div class="form-group">
+            <label>NIM</label>
+            <input type="text" id="nim">
+        </div>
+
+        <div class="form-group">
+            <label>Jurusan</label>
+            <input type="text" id="jurusan">
+        </div>
+
+        <div class="form-group">
+            <label>Hobi</label>
+            <input type="text" id="hobi">
+        </div>
+
+        <div class="form-group">
+            <label>Cita-cita</label>
+            <input type="text" id="cita">
+        </div>
+
+        <div class="form-group">
+            <label>Foto Profil</label>
+            <input type="file" id="foto" accept="image/*">
+        </div>
+
+        <button class="btn" onclick="tampilkanBiodata()">
+            Tampilkan Biodata
+        </button>
+
+        <div class="card" id="cardMahasiswa">
+            <img id="previewFoto">
+
+            <h2 id="hasilNama"></h2>
+
+            <p id="hasilJurusan"></p>
+
+            <div class="info">
+                <p><b>NIM :</b> <span id="hasilNim"></span></p>
+                <p><b>Hobi :</b> <span id="hasilHobi"></span></p>
+                <p><b>Cita-cita :</b> <span id="hasilCita"></span></p>
+                <p><b>Waktu Akses :</b> <span id="jam"></span></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Dibuat oleh Alfano | Praktikum JavaScript
+    </div>
+
+</div>
+
+<script>
+
+function tampilkanBiodata(){
+
+    let nama = document.getElementById("nama").value;
+    let nim = document.getElementById("nim").value;
+    let jurusan = document.getElementById("jurusan").value;
+    let hobi = document.getElementById("hobi").value;
+    let cita = document.getElementById("cita").value;
+
+    if(
+        nama=="" ||
+        nim=="" ||
+        jurusan=="" ||
+        hobi=="" ||
+        cita==""
+    ){
+        alert("Semua data wajib diisi!");
+        return;
+    }
+
+    document.getElementById("hasilNama").innerHTML = nama;
+    document.getElementById("hasilNim").innerHTML = nim;
+    document.getElementById("hasilJurusan").innerHTML = jurusan;
+    document.getElementById("hasilHobi").innerHTML = hobi;
+    document.getElementById("hasilCita").innerHTML = cita;
+
+    let waktu = new Date();
+
+    document.getElementById("jam").innerHTML =
+        waktu.toLocaleString("id-ID");
+
+    document.getElementById("cardMahasiswa").style.display = "block";
+
+    let file = document.getElementById("foto").files[0];
+
+    if(file){
+        let reader = new FileReader();
+
+        reader.onload = function(e){
+            document.getElementById("previewFoto").src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
+    }
+}
+
+</script>
+
+</body>
+</html>

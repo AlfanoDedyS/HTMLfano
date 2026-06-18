@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latihan 1</title>
+    <style>
+        body{
+            font-family: Arial;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        #judul{
+            transition: 0.3s;
+        }
+
+        button{
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="judul">Halo, Hola, Hello, Bonjour</h1>
+
+    <button onclick="ubahWarna()">
+        Ubah Warna
+    </button>
+
+    <script>
+        function ubahWarna(){
+            const judul = document.getElementById("judul");
+            const warnaRGB = [
+                "rgb(255, 0, 0)",    // merah
+                "rgb(0, 255, 0)",    // hijau
+                "rgb(0, 0, 255)",    // biru
+                "rgb(255, 165, 0)",  // oranye
+                "rgb(128, 0, 128)",  // ungu
+                "rgb(0, 255, 255)"   // cyan
+            ];
+
+            const idx = Math.floor(Math.random() * warnaRGB.length);
+            judul.style.color = warnaRGB[idx];
+        }
+    </script>
+
+</body>
+</html>

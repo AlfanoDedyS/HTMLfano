@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biodata Mahasiswa</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    text-align:center;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    background:#007bff;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.card{
+    margin-top:20px;
+    background:white;
+    width:350px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #007bff;
+}
+
+h2{
+    margin:10px 0;
+}
+
+.info{
+    text-align:left;
+    margin-top:15px;
+}
+
+.info p{
+    margin:8px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <button onclick="tampilBiodata()">
+        Tampilkan Biodata
+    </button>
+
+    <div id="hasil"></div>
+
+</div>
+
+<script>
+
+function tampilBiodata(){
+
+document.getElementById("hasil").innerHTML = `
+
+<div class="card">
+
+<img src="../pekan 9/foto/WhatsApp Image 2026-06-05 at 00.40.13.jpeg" alt="Foto Saya">
+
+<h2>Alfano</h2>
+
+<p>Mahasiswa Informatika</p>
+
+<div class="info">
+<p><b>NPM :</b> 20XX806XXX</p>
+<p><b>Kelas :</b> TEKFO 2 PAGI</p>
+<p><b>Email :</b> fanodedysiswanto@email.com</p>
+<p><b>Hobi :</b> Gaming 🎮</p>
+<p><b>Cita-cita :</b> Financial Freedom</p>
+</div>
+
+</div>
+
+<button onclick="window.location.href='../pekan 9/biodata-alfano.html'">
+    Lihat Biodata Lengkap
+</button>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
